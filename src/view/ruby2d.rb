@@ -27,12 +27,14 @@ module View
       def render_snake state
         get_dsl
         snake = state.snake
-        Square.new(
-          x: snake.positions[1].row * @pixel_size,
-          y: snake.positions[1].row * @pixel_size,
-          size: @pixel_size,
-          color: 'green'
-        )
+        snake.positions.each do |pos|
+          Square.new(
+            x: pos.col * @pixel_size,
+            y: pos.row * @pixel_size,
+            size: @pixel_size,
+            color: 'green'
+          )
+        end
       end
 
       def render_food state
