@@ -11,16 +11,19 @@ module View
       extend Ruby2D::DSL
     end
 
-    def render state
+    def start state
       get_dsl
       set(
         title: 'Snake', 
         width: @pixel_size * state.grid.cols, 
         height: @pixel_size * state.grid.rows
       )
+      show
+    end
+
+    def render state
       render_snake(state)
       render_food(state)
-      show
     end
 
     private
