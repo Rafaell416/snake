@@ -1,10 +1,12 @@
 require 'ruby2d'
+require_relative '../model/state'
 
 module View 
   class Ruby2dView 
 
-    def initialize 
+    def initialize(app)
       @pixel_size = 50 
+      @app = app
     end
 
     def get_dsl
@@ -18,6 +20,9 @@ module View
         width: @pixel_size * state.grid.cols, 
         height: @pixel_size * state.grid.rows
       )
+      on :key_down do |event|
+        handle_key_event(event)
+      end
       show
     end
 
@@ -52,5 +57,23 @@ module View
           color: 'yellow',
         )
       end
+
+      def handle_key_event event
+        case event.key
+        when 'up'
+          @app.send_action(:change_direction, Model::Direction::UP)
+          #move up
+        when 'down'
+          @app.send_action(:change_direction, Model::Direction::DOWN)
+          #move down
+        when 'left'
+          @app.send_action(:change_direction, Model::Direction::LEFT)
+          #move left
+        when 'right'
+          @app.send_action(:change_direction, Model::Direction::RIGHT)
+          #move right  
+        end
+      end
+      
   end
 end
