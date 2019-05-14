@@ -27,8 +27,8 @@ module View
     end
 
     def render state
-      render_snake(state)
       render_food(state)
+      render_snake(state)
     end
 
     private
@@ -74,6 +74,6 @@ module View
           #move right  
         end
       end
-      
+
   end
 end

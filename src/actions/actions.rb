@@ -3,7 +3,8 @@
       next_direction = state.curr_direction
       next_position = calc_next_position(state)
       if position_is_food?(state, next_position)
-        grow_snake(state, next_position)
+        state = grow_snake(state, next_position)
+        generate_food(state)
       elsif position_is_valid?(state, next_position)
         move_snake_to(state, next_position)
       else 
@@ -21,6 +22,12 @@
     end
 
     private
+
+    def self.generate_food(state)
+      new_food = Model::Food.new(rand(state.grid.rows), rand(state.grid.cols))
+      state.food = new_food
+      state
+    end
 
     def self.grow_snake(state, next_position)
       new_positions = [next_position] + state.snake.positions
